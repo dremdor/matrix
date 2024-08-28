@@ -1,0 +1,154 @@
+#suite sub_test
+
+#test same_size_matrix_sub
+    int rows = 2;
+    int columns = 2;
+    double values[4] = {1, 2, 3, 4};
+    double values2[4] = {1, 2, 3, 4};
+    double values_res[4] = {0, 0, 0, 0};
+    matrix_t A;
+    matrix_t B;
+    matrix_t result;
+    matrix_t answer;
+
+    int error = s21_create_matrix(rows, columns, &A);
+    ck_assert_int_eq(error, 0);
+
+    error = s21_create_matrix(rows, columns, &B);
+    ck_assert_int_eq(error, 0);
+
+    error = s21_create_matrix(rows, columns, &answer);
+    ck_assert_int_eq(error, 0);
+
+    s21_fill_matrix(values, &A);
+    s21_fill_matrix(values2, &B);
+    s21_fill_matrix(values_res, &answer);
+
+    error = s21_sub_matrix(&A, &B, &result);
+    ck_assert_int_eq(error, 0);
+
+    int equal = s21_eq_matrix(&result, &answer);
+    ck_assert_int_eq(equal, 1);
+
+    s21_remove_matrix(&A);
+    s21_remove_matrix(&B);
+    s21_remove_matrix(&result);
+    s21_remove_matrix(&answer);
+
+#test diff_size_matrix_sub
+    int rows = 2;
+    int columns = 2;
+    int rows2 = 3;
+    int columns2 = 3;
+    double values[4] = {1, 2, 3, 4};
+    double values2[9] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    matrix_t A;
+    matrix_t B;
+    matrix_t result;
+
+    int error = s21_create_matrix(rows, columns, &A);
+    ck_assert_int_eq(error, 0);
+
+    error = s21_create_matrix(rows2, columns2, &B);
+    ck_assert_int_eq(error, 0);
+
+    s21_fill_matrix(values, &A);
+    s21_fill_matrix(values2, &B);
+
+    error = s21_sub_matrix(&A, &B, &result);
+    ck_assert_int_eq(error, 2);
+
+    s21_remove_matrix(&A);
+    s21_remove_matrix(&B);
+
+#test diff_rows_matrix_sub
+    int rows = 2;
+    int columns = 2;
+    int rows2 = 3;
+    int columns2 = 2;
+    double values[4] = {1, 2, 3, 4};
+    double values2[6] = {1, 2, 3, 4, 5, 6};
+    matrix_t A;
+    matrix_t B;
+    matrix_t result;
+
+    int error = s21_create_matrix(rows, columns, &A);
+    ck_assert_int_eq(error, 0);
+
+    error = s21_create_matrix(rows2, columns2, &B);
+    ck_assert_int_eq(error, 0);
+
+    s21_fill_matrix(values, &A);
+    s21_fill_matrix(values2, &B);
+
+    error = s21_sub_matrix(&A, &B, &result);
+    ck_assert_int_eq(error, 2);
+
+    s21_remove_matrix(&A);
+    s21_remove_matrix(&B);
+
+#test diff_columns_matrix_sub
+    int rows = 2;
+    int columns = 2;
+    int rows2 = 2;
+    int columns2 = 3;
+    double values[4] = {1, 2, 3, 4};
+    double values2[6] = {1, 2, 3, 4, 5, 6};
+    matrix_t A;
+    matrix_t B;
+    matrix_t result;
+
+    int error = s21_create_matrix(rows, columns, &A);
+    ck_assert_int_eq(error, 0);
+
+    error = s21_create_matrix(rows2, columns2, &B);
+    ck_assert_int_eq(error, 0);
+
+    s21_fill_matrix(values, &A);
+    s21_fill_matrix(values2, &B);
+
+    error = s21_sub_matrix(&A, &B, &result);
+    ck_assert_int_eq(error, 2);
+
+    s21_remove_matrix(&A);
+    s21_remove_matrix(&B);
+
+#test null_a_matrix_sub
+    int rows2 = 2;
+    int columns2 = 3;
+    double values2[6] = {1, 2, 3, 4, 5, 6};
+    matrix_t B;
+    matrix_t result;
+
+    int error = s21_create_matrix(rows2, columns2, &B);
+    ck_assert_int_eq(error, 0);
+
+    s21_fill_matrix(values2, &B);
+
+    error = s21_sub_matrix(NULL, &B, &result);
+    ck_assert_int_eq(error, 1);
+
+    s21_remove_matrix(&B);
+
+#test null_b_matrix_sub
+    int rows = 2;
+    int columns = 2;
+    double values[4] = {1, 2, 3, 4};
+    matrix_t A;
+    matrix_t result;
+
+    int error = s21_create_matrix(rows, columns, &A);
+    ck_assert_int_eq(error, 0);
+
+    s21_fill_matrix(values, &A);
+
+    error = s21_sub_matrix(&A, NULL, &result);
+    ck_assert_int_eq(error, 1);
+
+    s21_remove_matrix(&A);
+
+#test null_ab_matrix_sub
+    matrix_t result;
+
+    int error = s21_sub_matrix(NULL, NULL, &result);
+    ck_assert_int_eq(error, 1);

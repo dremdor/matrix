@@ -1,0 +1,54 @@
+#suite create_test
+
+#test matrix_create_and_remove
+    int rows = 2;
+    int columns = 2;
+    double values[4] = {1, 2, 3, 4};
+    matrix_t result;
+
+    int error = s21_create_matrix(rows, columns, &result);
+    ck_assert_int_eq(error, 0);
+
+    s21_fill_matrix(values, &result);
+
+    int index = 0;
+    for(int i = 0; i < rows; ++i) {
+        for(int j = 0; j < columns; ++j) {
+            ck_assert_double_eq(result.matrix[i][j], values[index]);
+            ++index;
+        }
+    }
+
+    s21_remove_matrix(&result);
+
+#test wrong_rows_matrix_create_and_remove
+    int rows = 0;
+    int columns = 2;
+    matrix_t result;
+
+    int error = s21_create_matrix(rows, columns, &result);
+    ck_assert_int_eq(error, 1);
+
+#test wrong_columns_matrix_create_and_remove
+    int rows = 2;
+    int columns = 0;
+    matrix_t result;
+
+    int error = s21_create_matrix(rows, columns, &result);
+    ck_assert_int_eq(error, 1);
+
+#test null_matrix_create_and_remove
+    int rows = 2;
+    int columns = 2;
+
+    int error = s21_create_matrix(rows, columns, NULL);
+    ck_assert_int_eq(error, 1);
+
+#test null_matrix__remove
+    s21_remove_matrix(NULL);
+
+#test null_field_matrix__remove
+    matrix_t A;
+    A.matrix = NULL;
+
+    s21_remove_matrix(&A);

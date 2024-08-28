@@ -1,0 +1,101 @@
+#suite scalar_mul_test
+
+#test matrix_scalar_mul1
+    int rows = 2;
+    int columns = 2;
+
+    double values[4] = {1, 2, 3, 4};
+    double values_res[4] = {2, 4, 6, 8};
+    double num = 2;
+
+    matrix_t A;
+    matrix_t result;
+    matrix_t answer;
+
+    int error = s21_create_matrix(rows, columns, &A);
+    ck_assert_int_eq(error, 0);
+
+    error = s21_create_matrix(rows, columns, &answer);
+    ck_assert_int_eq(error, 0);
+
+    s21_fill_matrix(values, &A);
+    s21_fill_matrix(values_res, &answer);
+
+    error = s21_mult_number(&A, num, &result);
+    ck_assert_int_eq(error, 0);
+
+    int equal = s21_eq_matrix(&result, &answer);
+    ck_assert_int_eq(equal, 1);
+
+    s21_remove_matrix(&A);
+    s21_remove_matrix(&result);
+    s21_remove_matrix(&answer);
+
+#test matrix_scalar_mul2
+    int rows = 3;
+    int columns = 3;
+
+    double values[9] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    double values_res[9] = {3, 6, 9, 12, 15, 18, 21, 24, 27};
+    double num = 3;
+
+    matrix_t A;
+    matrix_t result;
+    matrix_t answer;
+
+    int error = s21_create_matrix(rows, columns, &A);
+    ck_assert_int_eq(error, 0);
+
+    error = s21_create_matrix(rows, columns, &answer);
+    ck_assert_int_eq(error, 0);
+
+    s21_fill_matrix(values, &A);
+    s21_fill_matrix(values_res, &answer);
+
+    error = s21_mult_number(&A, num, &result);
+    ck_assert_int_eq(error, 0);
+
+    int equal = s21_eq_matrix(&result, &answer);
+    ck_assert_int_eq(equal, 1);
+
+    s21_remove_matrix(&A);
+    s21_remove_matrix(&result);
+    s21_remove_matrix(&answer);
+
+#test matrix_scalar_mul_zero
+    int rows = 3;
+    int columns = 2;
+
+    double values[6] = {1, 2, 3, 4, 5, 6};
+    double values_res[9] = {0, 0, 0, 0, 0, 0};
+    double num = 0;
+
+    matrix_t A;
+    matrix_t result;
+    matrix_t answer;
+
+    int error = s21_create_matrix(rows, columns, &A);
+    ck_assert_int_eq(error, 0);
+
+    error = s21_create_matrix(rows, columns, &answer);
+    ck_assert_int_eq(error, 0);
+
+    s21_fill_matrix(values, &A);
+    s21_fill_matrix(values_res, &answer);
+
+    error = s21_mult_number(&A, num, &result);
+    ck_assert_int_eq(error, 0);
+
+    int equal = s21_eq_matrix(&result, &answer);
+    ck_assert_int_eq(equal, 1);
+
+    s21_remove_matrix(&A);
+    s21_remove_matrix(&result);
+    s21_remove_matrix(&answer);
+
+#test null_a_matrix_scalar
+    matrix_t result;
+    double number = 2;
+
+    int error = s21_mult_number(NULL, number, &result);
+    ck_assert_int_eq(error, 1);

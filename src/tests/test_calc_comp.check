@@ -1,0 +1,83 @@
+#suite calc_comp_test
+
+#test test_matrix_calc_comp
+    int rows = 3;
+    int columns = 3;
+    double values[9] = {1, 2, 3, 0, 4, 2, 5, 2, 1};
+    double res_values[9] = {0, 10, -20, 4, -14, 8, -8, -2, 4};
+
+    matrix_t A;
+    matrix_t result;
+    matrix_t answer;
+
+    int error = s21_create_matrix(rows, columns, &A);
+    ck_assert_int_eq(error, 0);
+
+    error = s21_create_matrix(rows, columns, &answer);
+    ck_assert_int_eq(error, 0);
+
+    s21_fill_matrix(values, &A);
+    s21_fill_matrix(res_values, &answer);
+
+    error = s21_calc_complements(&A, &result);
+    ck_assert_int_eq(error, 0);
+
+    int equal = s21_eq_matrix(&result, &answer);
+    ck_assert_int_eq(equal, 1);
+
+    s21_remove_matrix(&A);
+    s21_remove_matrix(&result);
+    s21_remove_matrix(&answer);
+
+#test test_matrix_1_1_calc_comp
+    int rows = 1;
+    int columns = 1;
+    double values[1] = {1};
+    double res_values[1] = {1};
+
+    matrix_t A;
+    matrix_t result;
+    matrix_t answer;
+
+    int error = s21_create_matrix(rows, columns, &A);
+    ck_assert_int_eq(error, 0);
+
+    error = s21_create_matrix(rows, columns, &answer);
+    ck_assert_int_eq(error, 0);
+
+    s21_fill_matrix(values, &A);
+    s21_fill_matrix(res_values, &answer);
+
+    error = s21_calc_complements(&A, &result);
+    ck_assert_int_eq(error, 0);
+
+    int equal = s21_eq_matrix(&result, &answer);
+    ck_assert_int_eq(equal, 1);
+
+    s21_remove_matrix(&A);
+    s21_remove_matrix(&result);
+    s21_remove_matrix(&answer);
+
+#test test_null_a_matrix_calc_comp
+    matrix_t result;
+
+    int error = s21_calc_complements(NULL, &result);
+    ck_assert_int_eq(error, 1);
+
+#test test_wrong_size_a_matrix_calc_comp
+    int rows = 2;
+    int columns = 3;
+    double values[6] = {1, 2, 3, 4, 5, 6};
+
+    matrix_t A;
+    matrix_t result;
+
+    int error = s21_create_matrix(rows, columns, &A);
+    ck_assert_int_eq(error, 0);
+
+    s21_fill_matrix(values, &A);
+
+    error = s21_calc_complements(&A, &result);
+    ck_assert_int_eq(error, 2);
+
+    s21_remove_matrix(&A);

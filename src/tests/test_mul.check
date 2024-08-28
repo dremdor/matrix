@@ -1,0 +1,379 @@
+#suite mul_test
+
+#test matrix_mul1
+    int rows = 2;
+    int rows2 = 3;
+    int columns = 3;
+    int columns2 = 2;
+
+    double values[6] = {1, 2, 2, 3, 1, 1};
+    double values2[6] = {4, 2, 3, 1, 1, 5};
+    double values_res[4] = {12, 14, 16, 12};
+
+    matrix_t A;
+    matrix_t B;
+    matrix_t result;
+    matrix_t answer;
+
+    int error = s21_create_matrix(rows, columns, &A);
+    ck_assert_int_eq(error, 0);
+
+    error = s21_create_matrix(rows2, columns2, &B);
+    ck_assert_int_eq(error, 0);
+
+    error = s21_create_matrix(rows, columns2, &answer);
+    ck_assert_int_eq(error, 0);
+
+    s21_fill_matrix(values, &A);
+    s21_fill_matrix(values2, &B);
+    s21_fill_matrix(values_res, &answer);
+
+    error = s21_mult_matrix(&A, &B, &result);
+    ck_assert_int_eq(error, 0);
+
+    int equal = s21_eq_matrix(&result, &answer);
+    ck_assert_int_eq(equal, 1);
+
+    s21_remove_matrix(&A);
+    s21_remove_matrix(&B);
+    s21_remove_matrix(&result);
+    s21_remove_matrix(&answer);
+
+#test matrix_mul1_reverse
+    int rows = 2;
+    int rows2 = 3;
+    int columns = 3;
+    int columns2 = 2;
+
+    double values[6] = {1, 2, 2, 3, 1, 1};
+    double values2[6] = {4, 2, 3, 1, 1, 5};
+    double values_res[9] = {10, 10, 10, 6, 7, 7, 16, 7, 7};
+
+    matrix_t A;
+    matrix_t B;
+    matrix_t result;
+    matrix_t answer;
+
+    int error = s21_create_matrix(rows, columns, &A);
+    ck_assert_int_eq(error, 0);
+
+    error = s21_create_matrix(rows2, columns2, &B);
+    ck_assert_int_eq(error, 0);
+
+    error = s21_create_matrix(rows2, columns, &answer);
+    ck_assert_int_eq(error, 0);
+
+    s21_fill_matrix(values, &A);
+    s21_fill_matrix(values2, &B);
+    s21_fill_matrix(values_res, &answer);
+
+    error = s21_mult_matrix(&B, &A, &result);
+    ck_assert_int_eq(error, 0);
+
+    int equal = s21_eq_matrix(&result, &answer);
+    ck_assert_int_eq(equal, 1);
+
+    s21_remove_matrix(&A);
+    s21_remove_matrix(&B);
+    s21_remove_matrix(&result);
+    s21_remove_matrix(&answer);
+
+#test matrix_mul2
+    int rows = 2;
+    int rows2 = 2;
+    int columns = 2;
+    int columns2 = 2;
+
+    double values[4] = {5, 2, 3, 1};
+    double values2[4] = {4, 6, 5, 2};
+    double values_res[4] = {30, 34, 17, 20};
+
+    matrix_t A;
+    matrix_t B;
+    matrix_t result;
+    matrix_t answer;
+
+    int error = s21_create_matrix(rows, columns, &A);
+    ck_assert_int_eq(error, 0);
+
+    error = s21_create_matrix(rows2, columns2, &B);
+    ck_assert_int_eq(error, 0);
+
+    error = s21_create_matrix(rows, columns2, &answer);
+    ck_assert_int_eq(error, 0);
+
+    s21_fill_matrix(values, &A);
+    s21_fill_matrix(values2, &B);
+    s21_fill_matrix(values_res, &answer);
+
+    error = s21_mult_matrix(&A, &B, &result);
+    ck_assert_int_eq(error, 0);
+
+    int equal = s21_eq_matrix(&result, &answer);
+    ck_assert_int_eq(equal, 1);
+
+    s21_remove_matrix(&A);
+    s21_remove_matrix(&B);
+    s21_remove_matrix(&result);
+    s21_remove_matrix(&answer);
+
+#test matrix_mul2_reverse
+    int rows = 2;
+    int rows2 = 2;
+    int columns = 2;
+    int columns2 = 2;
+
+    double values[4] = {5, 2, 3, 1};
+    double values2[4] = {4, 6, 5, 2};
+    double values_res[4] = {38, 14, 31, 12};
+
+    matrix_t A;
+    matrix_t B;
+    matrix_t result;
+    matrix_t answer;
+
+    int error = s21_create_matrix(rows, columns, &A);
+    ck_assert_int_eq(error, 0);
+
+    error = s21_create_matrix(rows2, columns2, &B);
+    ck_assert_int_eq(error, 0);
+
+    error = s21_create_matrix(rows, columns2, &answer);
+    ck_assert_int_eq(error, 0);
+
+    s21_fill_matrix(values, &A);
+    s21_fill_matrix(values2, &B);
+    s21_fill_matrix(values_res, &answer);
+
+    error = s21_mult_matrix(&B, &A, &result);
+    ck_assert_int_eq(error, 0);
+
+    int equal = s21_eq_matrix(&result, &answer);
+    ck_assert_int_eq(equal, 1);
+
+    s21_remove_matrix(&A);
+    s21_remove_matrix(&B);
+    s21_remove_matrix(&result);
+    s21_remove_matrix(&answer);
+
+#test matrix_mul3
+    int rows = 3;
+    int rows2 = 3;
+    int columns = 3;
+    int columns2 = 3;
+
+    double values[9] = {1, 4, 3, 2, 1, 5, 3, 2, 1};
+    double values2[9] = {5, 2, 1, 4, 3, 2, 2, 1, 5};
+    double values_res[9] = {27, 17, 24, 24, 12, 29, 25, 13, 12};
+
+    matrix_t A;
+    matrix_t B;
+    matrix_t result;
+    matrix_t answer;
+
+    int error = s21_create_matrix(rows, columns, &A);
+    ck_assert_int_eq(error, 0);
+
+    error = s21_create_matrix(rows2, columns2, &B);
+    ck_assert_int_eq(error, 0);
+
+    error = s21_create_matrix(rows, columns2, &answer);
+    ck_assert_int_eq(error, 0);
+
+    s21_fill_matrix(values, &A);
+    s21_fill_matrix(values2, &B);
+    s21_fill_matrix(values_res, &answer);
+
+    error = s21_mult_matrix(&A, &B, &result);
+    ck_assert_int_eq(error, 0);
+
+    int equal = s21_eq_matrix(&result, &answer);
+    ck_assert_int_eq(equal, 1);
+
+    s21_remove_matrix(&A);
+    s21_remove_matrix(&B);
+    s21_remove_matrix(&result);
+    s21_remove_matrix(&answer);
+
+#test matrix_mul3_reverse
+    int rows = 3;
+    int rows2 = 3;
+    int columns = 3;
+    int columns2 = 3;
+
+    double values[9] = {1, 4, 3, 2, 1, 5, 3, 2, 1};
+    double values2[9] = {5, 2, 1, 4, 3, 2, 2, 1, 5};
+    double values_res[9] = {12, 24, 26, 16, 23, 29, 19, 19, 16};
+
+    matrix_t A;
+    matrix_t B;
+    matrix_t result;
+    matrix_t answer;
+
+    int error = s21_create_matrix(rows, columns, &A);
+    ck_assert_int_eq(error, 0);
+
+    error = s21_create_matrix(rows2, columns2, &B);
+    ck_assert_int_eq(error, 0);
+
+    error = s21_create_matrix(rows, columns2, &answer);
+    ck_assert_int_eq(error, 0);
+
+    s21_fill_matrix(values, &A);
+    s21_fill_matrix(values2, &B);
+    s21_fill_matrix(values_res, &answer);
+
+    error = s21_mult_matrix(&B, &A, &result);
+    ck_assert_int_eq(error, 0);
+
+    int equal = s21_eq_matrix(&result, &answer);
+    ck_assert_int_eq(equal, 1);
+
+    s21_remove_matrix(&A);
+    s21_remove_matrix(&B);
+    s21_remove_matrix(&result);
+    s21_remove_matrix(&answer);
+
+#test matrix_mul4
+    int rows = 2;
+    int rows2 = 2;
+    int columns = 2;
+    int columns2 = 2;
+
+    double values[4] = {5, 2, 3, 1};
+    double values2[4] = {1, 0, 0, 1};
+    double values_res[4] = {5, 2, 3, 1};
+
+    matrix_t A;
+    matrix_t B;
+    matrix_t result;
+    matrix_t answer;
+
+    int error = s21_create_matrix(rows, columns, &A);
+    ck_assert_int_eq(error, 0);
+
+    error = s21_create_matrix(rows2, columns2, &B);
+    ck_assert_int_eq(error, 0);
+
+    error = s21_create_matrix(rows, columns2, &answer);
+    ck_assert_int_eq(error, 0);
+
+    s21_fill_matrix(values, &A);
+    s21_fill_matrix(values2, &B);
+    s21_fill_matrix(values_res, &answer);
+
+    error = s21_mult_matrix(&A, &B, &result);
+    ck_assert_int_eq(error, 0);
+
+    int equal = s21_eq_matrix(&result, &answer);
+    ck_assert_int_eq(equal, 1);
+
+    s21_remove_matrix(&A);
+    s21_remove_matrix(&B);
+    s21_remove_matrix(&result);
+    s21_remove_matrix(&answer);
+
+#test matrix_mul4_reverse
+    int rows = 2;
+    int rows2 = 2;
+    int columns = 2;
+    int columns2 = 2;
+
+    double values[4] = {5, 2, 3, 1};
+    double values2[4] = {1, 0, 0, 1};
+    double values_res[4] = {5, 2, 3, 1};
+
+    matrix_t A;
+    matrix_t B;
+    matrix_t result;
+    matrix_t answer;
+
+    int error = s21_create_matrix(rows, columns, &A);
+    ck_assert_int_eq(error, 0);
+
+    error = s21_create_matrix(rows2, columns2, &B);
+    ck_assert_int_eq(error, 0);
+
+    error = s21_create_matrix(rows, columns2, &answer);
+    ck_assert_int_eq(error, 0);
+
+    s21_fill_matrix(values, &A);
+    s21_fill_matrix(values2, &B);
+    s21_fill_matrix(values_res, &answer);
+
+    error = s21_mult_matrix(&B, &A, &result);
+    ck_assert_int_eq(error, 0);
+
+    int equal = s21_eq_matrix(&result, &answer);
+    ck_assert_int_eq(equal, 1);
+
+    s21_remove_matrix(&A);
+    s21_remove_matrix(&B);
+    s21_remove_matrix(&result);
+    s21_remove_matrix(&answer);
+
+#test null_a_matrix_mul
+    int rows = 2;
+    int columns = 2;
+
+    double values[4] = {1, 0, 0, 1};
+
+    matrix_t B;
+    matrix_t result;
+
+    int error = s21_create_matrix(rows, columns, &B);
+    ck_assert_int_eq(error, 0);
+
+    s21_fill_matrix(values, &B);
+
+    error = s21_mult_matrix(NULL, &B, &result);
+    ck_assert_int_eq(error, 1);
+
+    s21_remove_matrix(&B);
+
+#test null_b_matrix_mul
+    int rows = 2;
+    int columns = 2;
+
+    double values[4] = {1, 0, 0, 1};
+
+    matrix_t A;
+    matrix_t result;
+
+    int error = s21_create_matrix(rows, columns, &A);
+    ck_assert_int_eq(error, 0);
+
+    s21_fill_matrix(values, &A);
+
+    error = s21_mult_matrix(&A, NULL, &result);
+    ck_assert_int_eq(error, 1);
+
+    s21_remove_matrix(&A);
+
+#test wrong_size_matrix_mul
+    int rows = 2;
+    int columns = 2;
+    int rows2 = 3;
+    int columns2 = 3;
+
+    double values[4] = {5, 2, 3, 1};
+    double values2[9] = {1, 0, 0, 1, 1, 1, 1, 1, 1};
+
+    matrix_t A;
+    matrix_t B;
+    matrix_t result;
+
+    int error = s21_create_matrix(rows, columns, &A);
+    ck_assert_int_eq(error, 0);
+
+    error = s21_create_matrix(rows2, columns2, &B);
+    ck_assert_int_eq(error, 0);
+
+    s21_fill_matrix(values, &A);
+    s21_fill_matrix(values2, &B);
+
+    error = s21_mult_matrix(&B, &A, &result);
+    ck_assert_int_eq(error, 2);
+
+    s21_remove_matrix(&A);
+    s21_remove_matrix(&B);

@@ -1,0 +1,119 @@
+#suite compare_test
+
+#test matrix_equal_compare
+    int rows = 2;
+    int columns = 2;
+    double values[4] = {1, 2, 3, 4};
+    matrix_t A;
+    matrix_t B;
+
+    int error = s21_create_matrix(rows, columns, &A);
+    ck_assert_int_eq(error, 0);
+
+    error = s21_create_matrix(rows, columns, &B);
+    ck_assert_int_eq(error, 0);
+
+    s21_fill_matrix(values, &A);
+    s21_fill_matrix(values, &B);
+
+    int equal = s21_eq_matrix(&A, &B);
+    ck_assert_int_eq(equal, 1);
+
+    s21_remove_matrix(&A);
+    s21_remove_matrix(&B);
+
+#test matrix_not_equal_compare
+    int rows = 2;
+    int columns = 2;
+    double values[4] = {1, 2, 3, 4};
+    double values2[4] = {2, 2, 2, 4};
+    matrix_t A;
+    matrix_t B;
+
+    int error = s21_create_matrix(rows, columns, &A);
+    ck_assert_int_eq(error, 0);
+
+    error = s21_create_matrix(rows, columns, &B);
+    ck_assert_int_eq(error, 0);
+
+    s21_fill_matrix(values, &A);
+    s21_fill_matrix(values2, &B);
+
+    int equal = s21_eq_matrix(&A, &B);
+    ck_assert_int_eq(equal, 0);
+
+    s21_remove_matrix(&A);
+    s21_remove_matrix(&B);
+
+#test diff_rows_matrix_compare
+    int rows = 2;
+    int rows2 = 3;
+    int columns = 2;
+    double values[4] = {1, 2, 3, 4};
+    double values2[6] = {1, 2, 2, 4, 5, 6};
+    matrix_t A;
+    matrix_t B;
+
+    int error = s21_create_matrix(rows, columns, &A);
+    ck_assert_int_eq(error, 0);
+
+    error = s21_create_matrix(rows2, columns, &B);
+    ck_assert_int_eq(error, 0);
+
+    s21_fill_matrix(values, &A);
+    s21_fill_matrix(values2, &B);
+
+    int equal = s21_eq_matrix(&A, &B);
+    ck_assert_int_eq(equal, 0);
+
+    s21_remove_matrix(&A);
+    s21_remove_matrix(&B);
+
+#test diff_columns_matrix_compare
+    int rows = 2;
+    int columns = 2;
+    int columns2 = 3;
+    double values[4] = {1, 2, 3, 4};
+    double values2[6] = {1, 2, 2, 4, 5, 6};
+    matrix_t A;
+    matrix_t B;
+
+    int error = s21_create_matrix(rows, columns, &A);
+    ck_assert_int_eq(error, 0);
+
+    error = s21_create_matrix(rows, columns2, &B);
+    ck_assert_int_eq(error, 0);
+
+    s21_fill_matrix(values, &A);
+    s21_fill_matrix(values2, &B);
+
+    int equal = s21_eq_matrix(&A, &B);
+    ck_assert_int_eq(equal, 0);
+
+    s21_remove_matrix(&A);
+    s21_remove_matrix(&B);
+
+#test diff_all_matrix_compare
+    int rows = 2;
+    int columns = 2;
+    int rows2 = 3;
+    int columns2 = 3;
+    double values[4] = {1, 2, 3, 4};
+    double values2[9] = {1, 2, 2, 4, 5, 6, 7, 8, 9};
+    matrix_t A;
+    matrix_t B;
+
+    int error = s21_create_matrix(rows, columns, &A);
+    ck_assert_int_eq(error, 0);
+
+    error = s21_create_matrix(rows2, columns2, &B);
+    ck_assert_int_eq(error, 0);
+
+    s21_fill_matrix(values, &A);
+    s21_fill_matrix(values2, &B);
+
+    int equal = s21_eq_matrix(&A, &B);
+    ck_assert_int_eq(equal, 0);
+
+    s21_remove_matrix(&A);
+    s21_remove_matrix(&B);
